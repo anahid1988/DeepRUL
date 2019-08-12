@@ -1,3 +1,3 @@
 # DeepRUL
 
-This repository contains a set of scripts for Deep Learning for Remaining useful Life calculation.
+This repository contains a set of Python notebooks for Deep Learning applications in Remaining Useful Life Estimation.
