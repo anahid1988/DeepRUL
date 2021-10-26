@@ -14,8 +14,6 @@ This repository contains a set of Python notebooks for eXplainable Deep Learning
 ## Project Description and Summary
 Interpretable machine learning has recently attracted a lot of interest in the community. Currently, it mainly focuses on models trained on non-time series data. LIME and SHAP are well-known examples and provide visual explanations of feature contributions to model decisions on an instance basis. Other post-hoc approaches, such as attribute-wise interpretations, also focus on tabular data only. Little research has been done so far on the interpretability of predictive models trained on time series data. Therefore, this work focuses on explaining decisions made by black-box models such as Deep Neural Networks trained on sensor data. In this project, we first present the results of a qualitative study, in which we systematically compare the types of explanations and the properties (e.g., method, computational complexity) of existing interpretability approaches for models trained on the PHM08-CMAPSS dataset. We further investigate machine learning practitioners needs to advance and improve the explanations in terms of their comprehensiveness, comprehensibility and trust. Finally, we expand the idea of LIME for meaningful time series model interpretation and evaluate our approach on PHM08-CMAPSS dataset. Throughout our experiments, we also point out the advantages and disadvantages of using these approaches for interpreting models trained on time series data. Our investigation results can serve as a guideline for selecting a suitable explainability method for black-box predictive models trained on time-series data.
 
-
-Reference-style: 
 ![alt text][cmapss]
 
 [cmapss]: https://github.com/anahid1988/DeepRUL/blob/master/figures/CMAPSS_description.png
@@ -26,4 +24,6 @@ C-MAPSS aircraft engine data is a benchmark dataset that contains run-to-failure
 
 ### Project Timeline
 
+![alt text][timeline]
 
+[timeline]: https://github.com/anahid1988/DeepRUL/blob/master/figures/project_timeline.png
