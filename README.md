@@ -25,13 +25,13 @@ These explanations point to relevant time series characteristics and their param
 [cmapss]: figures/CMAPSS_description.png
 
 
-### Counterfactual Explanations
 Figure below, shows an overview of my approach for extracting the similar examples and counterfactual examples for a given prediction.
 
 
 ![alt text][BigPicture]
 
-[workpackages]: figures/Big-Picture.png
+[BigPicture]: figures/Big-Picture.png
+
 
 
 ### Dataset and Work Description
