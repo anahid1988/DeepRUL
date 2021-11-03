@@ -1,6 +1,6 @@
 # eXplainable Deep Neural Networks for Machine's Health Prognosis Management applications
 
-This repository contains a set of Python notebooks for eXplainable Deep Learning applications in Remaining Useful Life and Machine's health Estimation.
+This repository will contain experiments on explaining Deep Learning applications for Remaining Useful Life and Machine's health Estimation.
 
 **Project Type** - Bring your own method
 
