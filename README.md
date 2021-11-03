@@ -29,7 +29,8 @@ Commercial Modular Aero-Propulsion System Simulation is intended for Prognosis H
 C-MAPSS aircraft engine data is a benchmark dataset that contains run-to-failure data, including labeled breakdowns. It represents 218 engines of a similar type, which all start from a healthy state. Faults are injected throughout the entire engine's life span until it goes to a breakdown state. The maximum and the minimum number of cycles to failure in the training set are 357 and 128, respectively, with a mean of 210. The engine data's attributes consist of three operational settings, vibration data collected from vibration sensors, and two binary attributes. We name the columns as follows: the first two columns represent the engine number and cycles, columns 3 to 5 represent the operational settings and from column six, and every attribute is named as s1 to s21 (sensor 1, sensor two and so on). 
 
 ### Project Timeline & Work Package Descriptions
-Figure below, shows my approach on extracting the similar examples and counterfactual examples for a given prediction.
+Figure below, shows an overview of my approach for extracting the similar examples and counterfactual examples for a given prediction.
+
 
 ![alt text][BigPicture]
 
