@@ -24,6 +24,15 @@ These explanations point to relevant time series characteristics and their param
 
 [cmapss]: figures/CMAPSS_description.png
 
+
+### Counterfactual Explanations
+Figure below, shows an overview of my approach for extracting the similar examples and counterfactual examples for a given prediction.
+
+![alt text][BigPicture]
+
+[workpackages]: figures/Big-Picture.png
+
+
 ### Dataset and Work Description
 Commercial Modular Aero-Propulsion System Simulation is intended for Prognosis Health Management tasks such as Time-To-Failure (TTF) and Remaining-Useful-Life (RUL) estimation. We specifically download the publicly available CMAPSS dataset used for PHM08 challenge from [Nasa dataset repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/). 
 C-MAPSS aircraft engine data is a benchmark dataset that contains run-to-failure data, including labeled breakdowns. It represents 218 engines of a similar type, which all start from a healthy state. Faults are injected throughout the entire engine's life span until it goes to a breakdown state. The maximum and the minimum number of cycles to failure in the training set are 357 and 128, respectively, with a mean of 210. The engine data's attributes (26 attributes) consist of three operational settings, time series data collected from vibration sensors. Given the original description of the dataset at [Nasa dataset repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/), we name the columns as follows: the first two columns represent the engine number and cycles, columns 3 to 5 represent the operational settings and from column six, every time series attribute is named as s1 to s21 (sensor-measurement one, sensor-measurement two and so on). 
