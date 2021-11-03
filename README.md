@@ -36,10 +36,11 @@ For this project, I focus on a univariate time series classification task, and c
 ### Project Timeline 
 Figure below, shows an overview of my approach for extracting the similar examples and counterfactual examples for a given prediction.
 
-
 ![alt text][BigPicture]
 
 [workpackages]: figures/Big-Picture.png
+
+
 
 ![alt text][timeline]
 
