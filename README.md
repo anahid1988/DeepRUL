@@ -34,3 +34,6 @@ C-MAPSS aircraft engine data is a benchmark dataset that contains run-to-failure
 
 [timeline]: figures/project_timeline.png
 
+![alt text][workpackages]
+
+[workpackages]: figures/WPs.png
