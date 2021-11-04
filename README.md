@@ -18,13 +18,6 @@ In my [publication](https://papers.phmsociety.org/index.php/phme/article/view/12
 For this project, I expand the idea of LIME for generating meaningful explanations on time series model outputs. Lime uses a local surrogate interpretable model (e.g., Lasso or a Decision Tree) to estimate the black-box's decision boundary in local neighborhoods. For this purpose, LIME first generates extra samples and their corresponding labels (predicted by the black-box) around a data point of interest. Second, based on their distance to the data point, LIME weights the generated sample - the closest to the data point, the higher the weight. Finally, LIME justifies the black-box's prediction using the trained weights of an interpretable surrogate model on this generated dataset.
 However, these explanations are not completely meaningful for sensor data (e.g., vibration data). Therefore, I propose to generate the new dataset by generating interpretable representations for the time series. Then, using a local surrogate decision tree, we can extract the boundaries of the feature parameters, and use them as explanations.   
 These explanations point to relevant time series characteristics (e.g., time domain and frequency domain features) and their parameters, representing their contribution to the classifier's decision. Furthermore, I extract similar and counterfactual examples that the user visually see the diferences between the different time series interval and their predicted labels. I use the PHM08-CMAPSS dataset to evaluate this idea, which is a well-known and publicly available run-to-failure sensor data.
-
-
-![alt text][cmapss]
-
-[cmapss]: figures/CMAPSS_description.png
-
-
 Figure below, shows an overview of my approach for extracting the similar examples and counterfactual examples for a given prediction.
 
 
@@ -39,11 +32,15 @@ Commercial Modular Aero-Propulsion System Simulation is intended for Prognosis H
 C-MAPSS aircraft engine data is a benchmark dataset that contains run-to-failure data, including labeled breakdowns. It represents 218 engines of a similar type, which all start from a healthy state. Faults are injected throughout the entire engine's life span until it goes to a breakdown state. The maximum and the minimum number of cycles to failure in the training set are 357 and 128, respectively, with a mean of 210. The engine data's attributes (26 attributes) consist of three operational settings, time series data collected from vibration sensors. Given the original description of the dataset at [Nasa dataset repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/), we name the columns as follows: the first two columns represent the engine number and cycles, columns 3 to 5 represent the operational settings and from column six, every time series attribute is named as s1 to s21 (sensor-measurement one, sensor-measurement two and so on). 
 For this project, I focus on a univariate time series classification task, and choose the sensor-measurement with the highest influence of classification results. The selected sensor-measurement is based on my previous [experiments](https://papers.phmsociety.org/index.php/phme/article/view/1244), which showed that the sensor-measurement 12 (s12) has the highest contribution to the linear models' decision. 
 
+![alt text][cmapss]
+
+[cmapss]: figures/CMAPSS_description.png
+
+### Project Timeline 
+
 ![alt text][wps]
 
 [wps]: figures/WPs.png
-
-### Project Timeline 
 
 ![alt text][timeline]
 
