@@ -4,7 +4,7 @@ This repository will contain reports on explaining Deep Learning applications fo
 
 **Project Type** - Bring your own method
 
-**Project Motivation** - This project is a PhD in progress and is motivated by the work of 
+**Project Motivation** - This project is part of a PhD in progress and is motivated by the work of 
 * [Ribeiro et. al., 2016 "Why should I trust you?" Explaining the predictions of any classifier. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining](https://www.kdd.org/kdd2016/papers/files/rfp0573-ribeiroA.pdf)
 * [Schmidt et al., 2019. Quantifying interpretability and trust in machine learning systems. AAAI-19 Workshop on Network Interpretability for Deep Learning](https://arxiv.org/abs/1901.08558)
 * [Guilleme et al., 2019. Agnostic local explanation for time series classification. 2019 IEEE 31st International Conference on Tools with Artificial Intelligence (ICTAI)](https://ieeexplore.ieee.org/document/8995349/)
