@@ -16,7 +16,7 @@ This repository contains the following python (3.8) scripts
 - __inspect_results.py__: this script comprises functions that plot the model predictions and compares them with their actual labels. 
 - __explainability.py__: this script contains the methods I use to generate the factual and counterfactual examples. It also contains the method that extract the time series features for the surrogate model.
 
-The __CMAPSS_main.ipynb__ contains the experiments and the documentatiom I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
+The __CMAPSS_main.ipynb__ contains the experiments and the documentation, which I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
 
 ## Project Description and Summary
 Interpretable machine learning has recently attracted a lot of interest in the community. The current explainability approaches mainly focus on models trained on non-time series data. LIME and SHAP are well-known post-hoc examples that provide visual explanations of feature contributions to model decisions on an instance basis. Other approaches, such as attribute-wise interpretations, only focus on tabular data. Little research has been done so far on the interpretability of predictive models trained on time series data. Therefore, my Ph.D. focuses on explaining decisions made by black-box models such as Deep Neural Networks trained on sensor data. 
