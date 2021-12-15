@@ -26,18 +26,19 @@ I have spent roughly 86 hours implementing the code, debugging, parameter tuning
 Unfortunately, after transferring my code into the scripts, I ran into some annoying bugs, which took me some good hours to fix.
 The breakdown of my hours are as the following:
 
-WP 1: ~24 hours
-Data preprocessing and feature engineering > (~20 hours)
-Reading papers for a benchmark close to my task > (~4 hours)
-WP 2:  ~31 hour
-Model building / baselines/vanilla LSTM > (~2 hours)
-Parameter tunning (Before Talos Library) > (~20 hours)
-Parameter tunning (After Talos Library) > (~1 hour)
-Model Inspection > (~8 hours)
-WP 3: ~31 hour
-Factual and Counterfactual explanations (~30 hours)
-surrogate Model (~1 hour)
-WP 4:  As I did it simultaneously while experimenting, I can only guess around 10 hours to create my January slides and an overall image. But these hours are also calculated within each of the hours mentioned in the above work packages. 
+- WP 1: ~24 hours
+-- Data preprocessing and feature engineering > (~20 hours)
+-- Reading papers for a benchmark close to my task > (~4 hours)
+- WP 2:  ~31 hour
+-- Model building / baselines/vanilla LSTM > (~2 hours)
+-- Parameter tunning (Before Talos Library) > (~20 hours)
+-- Parameter tunning (After Talos Library) > (~1 hour)
+-- Model Inspection > (~8 hours)
+- WP 3: ~31 hour
+-- Factual and Counterfactual explanations > (~30 hours)
+-- surrogate Model > (~1 hour)
+- WP 4:  
+- -- As I did it simultaneously while experimenting, I can only guess around 10 hours to create my January slides and an overall image. But these hours are also calculated within each of the hours mentioned in the above work packages. 
 
 
 
