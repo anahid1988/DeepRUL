@@ -1,6 +1,6 @@
 # eXplainable Deep Neural Networks for Machine's Health Prognosis Management applications
 
-This repository will contain reports on explaining Deep Learning applications for Remaining Useful Life and Machine's health Estimation.
+This repository contains scripts and reports on explaining Deep Learning applications for Remaining Useful Life and Machine's health Estimation.
 
 **Project Type** - Bring your own method
 
@@ -10,20 +10,34 @@ This repository will contain reports on explaining Deep Learning applications fo
 * [Guilleme et al., 2019. Agnostic local explanation for time series classification. 2019 IEEE 31st International Conference on Tools with Artificial Intelligence (ICTAI)](https://ieeexplore.ieee.org/document/8995349/)
 * [Guidotti et al., 2018. Local rule-based explanations ofblack box decision systems. arXiv preprint arXiv:1805.10820.](https://arxiv.org/abs/1805.10820)
 
+## road map to the repository
+This repository contains the following python (3.8) scripts
+- --prepare_dara.py--: this script contains the class CMAPSS and is meant for pre processing the CMAPSS development dataset.
+- --inspect_results.py--: this script comprises functions that plot the model predictions and compares them with their actual labels. 
+- --explainability.py--: this script contains the methods I use to generate the factual and counterfactual examples. It also contains the method that extract the time series features for the surrogate model.
+
+To understand the flow of the work, please start with the --CMAPSS_explore.ipynb. This notebook provides an overview of the data, and justifies my preprocessing steps.
+The --CMAPSS_main.ipynb-- contains the experiments and the documentatiom I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
 
 ## Project Description and Summary
 Interpretable machine learning has recently attracted a lot of interest in the community. The current explainability approaches mainly focus on models trained on non-time series data. LIME and SHAP are well-known post-hoc examples that provide visual explanations of feature contributions to model decisions on an instance basis. Other approaches, such as attribute-wise interpretations, only focus on tabular data. Little research has been done so far on the interpretability of predictive models trained on time series data. Therefore, my Ph.D. focuses on explaining decisions made by black-box models such as Deep Neural Networks trained on sensor data. 
 In my [publication](https://papers.phmsociety.org/index.php/phme/article/view/1244), I first presented the results of a qualitative study, in which we systematically compared the types of explanations and the properties (e.g., method, computational complexity) of existing interpretability approaches for models trained on the PHM08-CMAPSS dataset. In our subsequent work, we investigated machine learning practitioners' needs to advance and improve the explanations in terms of comprehensiveness, comprehensibility, and trust. We also pointed out the advantages and disadvantages of using these approaches for interpreting models trained on time series data.
 
-For this project, I extend the idea of LIME for generating meaningful explanations on time series model outputs. Lime uses a local surrogate interpretable model (e.g., Lasso or a Decision Tree) to estimate the black-box's decision boundary in local neighborhoods. For this purpose, LIME first generates extra samples and their corresponding labels (predicted by the black-box) around a data point of interest. Second, based on their distance to the data point, LIME weights the generated sample - the closest to the data point, the higher the weight. Finally, LIME justifies the black-box's prediction using the trained weights of an interpretable surrogate model on this generated dataset.
-However, these explanations are not completely meaningful for sensor data (e.g., vibration data). Therefore, I propose to generate the new dataset by generating interpretable representations for the time series. Then, using a local surrogate decision tree, we can extract the boundaries of the feature parameters, and use them as explanations.   
-These explanations point to relevant time series characteristics (e.g., time domain and frequency domain features) and their parameters, representing their contribution to the classifier's decision. Furthermore, I extract similar and counterfactual examples that visually show the differences between the time series intervals and their predicted labels. I use the PHM08-CMAPSS dataset to evaluate this idea, a well-known and publicly available run-to-failure sensor data. The figure below shows an overview of my approach for extracting similar examples and counterfactual examples for a given prediction.
+For this project, I extend the idea of LIME and LORE to generate explanations for a binary time series classifier. 
+Lime uses a local surrogate interpretable model (e.g., Lasso or a Decision Tree) to estimate the black-box's decision boundary in local neighborhoods. For this purpose, LIME first generates extra samples and their corresponding labels (predicted by the black-box) around a data point of interest. Second, based on their distance to the data point, LIME weights the generated sample - the closest to the data point, the higher the weight. Finally, LIME justifies the black-box's prediction using the trained weights of an interpretable surrogate model on this generated dataset. However, these explanations are not completely meaningful for sensor data (e.g., vibration data). 
+
+Therefore, I propose to generate the new dataset by generating interpretable representations such as time domain (e.g., amplitute mean, pitch, std) and frequency domain features (e.g., ffts) from the raw input time series. 
+Then, using a surrogate decision tree, we can extract the boundaries of the feature parameters, and use them as explanations.   
+These explanations point to relevant time series characteristics and their parameters, representing their contribution to the classifier's decision. 
+
+Furthermore, I extract factual and counterfactual examples that visually can show the differences between the time series sequences from the prediction set and the train set.
+
+To evaluate my idea, I use the PHM08-CMAPSS dataset, a well-known and publicly available run-to-failure sensor data. The figure below shows an overview of my approach for extracting similar examples and counterfactual examples for a given prediction.
 
 
 ![alt text][BigPicture]
 
 [BigPicture]: figures/Big-Picture.png
-
 
 
 ### Dataset and Work Description
