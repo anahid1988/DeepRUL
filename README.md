@@ -11,12 +11,34 @@ This repository contains scripts and reports on explaining Deep Learning applica
 * [Guidotti et al., 2018. Local rule-based explanations ofblack box decision systems. arXiv preprint arXiv:1805.10820.](https://arxiv.org/abs/1805.10820)
 
 ## A Road Map to the Repository
-This repository contains the following python (3.8) scripts
-- __prepare_dara.py__: this script contains the class CMAPSS and is meant for preprocessing the CMAPSS development dataset.
-- __inspect_results.py__: this script comprises functions that plot the model predictions and compares them with their actual labels. 
-- __explainability.py__: this script contains the methods I use to generate the factual and counterfactual examples. It also contains the method that extract the time series features for the surrogate model.
+This repository contains the following Python (3.8) scripts.
+_ __prepare_dara.py__: this script contains the class CMAPSS and is meant to preprocess the CMAPSS development dataset.
+_ __inspect_results.py__: this script comprises functions that plot the model predictions and compare them with their actual labels. 
+- __explainability.py__: this script contains the functions I used to generate the factual and counterfactual examples. It also contains the method that extracts the surrogate model's time series features.
 
-The __CMAPSS_main.ipynb__ contains the experiments and the documentation, which I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
+The __CMAPSS_main.ipynb__ contains the experiments and documentation I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
+
+As this is a binary classification task, I evaluate my model's performance by its accuracy and f1-score. I aim to achieve ~85% accuracy and ~80% f1-score. However, until now and after parameter tuning, my model reaches an accuracy of 79% and an average f1-score of 79%, having 76% and 82% f1-score for class healthy and unhealthy, respectively.
+
+### A rough estimation of my workload
+I have spent roughly 86 hours implementing the code, debugging, parameter tuning, refactoring, and cleaning up the scripts. 
+Unfortunately, after transferring my code into the scripts, I ran into some annoying bugs, which took me some good hours to fix.
+The breakdown of my hours are as the following:
+
+WP 1: ~24 hours
+Data preprocessing and feature engineering > (~20 hours)
+Reading papers for a benchmark close to my task > (~4 hours)
+WP 2:  ~31 hour
+Model building / baselines/vanilla LSTM > (~2 hours)
+Parameter tunning (Before Talos Library) > (~20 hours)
+Parameter tunning (After Talos Library) > (~1 hour)
+Model Inspection > (~8 hours)
+WP 3: ~31 hour
+Factual and Counterfactual explanations (~30 hours)
+surrogate Model (~1 hour)
+WP 4:  As I did it simultaneously while experimenting, I can only guess around 10 hours to create my January slides and an overall image. But these hours are also calculated within each of the hours mentioned in the above work packages. 
+
+
 
 ## Project Description and Summary
 Interpretable machine learning has recently attracted a lot of interest in the community. The current explainability approaches mainly focus on models trained on non-time series data. LIME and SHAP are well-known post-hoc examples that provide visual explanations of feature contributions to model decisions on an instance basis. Other approaches, such as attribute-wise interpretations, only focus on tabular data. Little research has been done so far on the interpretability of predictive models trained on time series data. Therefore, my Ph.D. focuses on explaining decisions made by black-box models such as Deep Neural Networks trained on sensor data. 
