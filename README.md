@@ -12,9 +12,9 @@ This repository contains scripts and reports on explaining Deep Learning applica
 
 ## road map to the repository
 This repository contains the following python (3.8) scripts
-- --prepare_dara.py--: this script contains the class CMAPSS and is meant for pre processing the CMAPSS development dataset.
-- --inspect_results.py--: this script comprises functions that plot the model predictions and compares them with their actual labels. 
-- --explainability.py--: this script contains the methods I use to generate the factual and counterfactual examples. It also contains the method that extract the time series features for the surrogate model.
+- __prepare_dara.py__: this script contains the class CMAPSS and is meant for preprocessing the CMAPSS development dataset.
+- __inspect_results.py__: this script comprises functions that plot the model predictions and compares them with their actual labels. 
+- __explainability.py__: this script contains the methods I use to generate the factual and counterfactual examples. It also contains the method that extract the time series features for the surrogate model.
 
 To understand the flow of the work, please start with the --CMAPSS_explore.ipynb. This notebook provides an overview of the data, and justifies my preprocessing steps.
 The --CMAPSS_main.ipynb-- contains the experiments and the documentatiom I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
