@@ -10,7 +10,7 @@ This repository contains scripts and reports on explaining Deep Learning applica
 * [Guilleme et al., 2019. Agnostic local explanation for time series classification. 2019 IEEE 31st International Conference on Tools with Artificial Intelligence (ICTAI)](https://ieeexplore.ieee.org/document/8995349/)
 * [Guidotti et al., 2018. Local rule-based explanations ofblack box decision systems. arXiv preprint arXiv:1805.10820.](https://arxiv.org/abs/1805.10820)
 
-## road map to the repository
+## A Road Map to the Repository
 This repository contains the following python (3.8) scripts
 - __prepare_dara.py__: this script contains the class CMAPSS and is meant for preprocessing the CMAPSS development dataset.
 - __inspect_results.py__: this script comprises functions that plot the model predictions and compares them with their actual labels. 
