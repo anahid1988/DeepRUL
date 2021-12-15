@@ -16,8 +16,6 @@ This repository contains the following python (3.8) scripts
 - __inspect_results.py__: this script comprises functions that plot the model predictions and compares them with their actual labels. 
 - __explainability.py__: this script contains the methods I use to generate the factual and counterfactual examples. It also contains the method that extract the time series features for the surrogate model.
 
-To understand the flow and the logic of the work, please start with the __CMAPSS_explore.ipynb__ notebook. This notebook provides an overview of the data, and justifies my preprocessing steps.
-
 The __CMAPSS_main.ipynb__ contains the experiments and the documentatiom I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
 
 ## Project Description and Summary
