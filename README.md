@@ -19,7 +19,7 @@ This repository contains the following Python (3.8) scripts.
 
 The __CMAPSS_main.ipynb__ contains the experiments and documentation I created to model the CMAPSS dataset and predict the health state (healthy or unhealthy) of a given engines' sequence.
 
-As this is a binary classification task, I evaluate my model's performance by its accuracy and f1-score. I aim to achieve ~85% accuracy and ~80% f1-score. However, until now and after parameter tuning, my model reaches an accuracy of 79% and an average f1-score of 79%, having 76% and 82% f1-score for class healthy and unhealthy, respectively.
+As this is a binary classification task, I evaluate my model's performance by its accuracy and f1-score. I aim to achieve ~85% accuracy and ~85% f1-score. However, until now and after parameter tuning, my model reaches an accuracy of 79% and an average f1-score of 79%, having 76% and 82% f1-score for class healthy and unhealthy, respectively.
 
 ### A rough estimation of my workload
 I have spent roughly 86 hours implementing the code, debugging, parameter tuning, refactoring, and cleaning up the scripts. 
