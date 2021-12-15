@@ -12,6 +12,14 @@ np.random.seed(7)
 cmapss = prepare_data.CMAPSS()
 
 def get_predictions_as_df(nd_array, y_true, y_pred):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
+    
     df = pd.DataFrame(data=nd_array)
     df.columns = ["ts_{}".format(i) for i in range(nd_array.shape[1])] 
     df["y_true"] = y_true
@@ -22,6 +30,12 @@ def get_predictions_as_df(nd_array, y_true, y_pred):
     
 
 def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
     
     # get the x_test[i] and exclude y_true, y_pred and model confidence
     x_sample=selected_sample[["ts_{}".format(i) for i in range(len(selected_sample)-3)]].values
@@ -40,20 +54,23 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
                                             ].predict(x_sample[np.newaxis, :])[0]
 
     center_cols = ["center_{}".format(i) for i in range(len(x_sample))]
+    
+    factual_cluster = None
+    counterfactual_cluster = None
 
-
-    # assuming your factual cluster is an unhealthy cluster
-    factual_cluster = train_cluster_df[
-        train_cluster_df.cluster==closest_unhealthy_cluster
-    ]
-
-    # and your counterfactual cluster is a healthy cluster
-    counterfactual_cluster = train_cluster_df[
-            train_cluster_df.cluster==closest_healthy_cluster
+    if int(x_prediction) == 1:
+        # assuming your factual cluster is an unhealthy cluster
+        factual_cluster = train_cluster_df[
+            train_cluster_df.cluster==closest_unhealthy_cluster
         ]
 
+        # and your counterfactual cluster is a healthy cluster
+        counterfactual_cluster = train_cluster_df[
+                train_cluster_df.cluster==closest_healthy_cluster
+            ]
+
     # but if the prediction for this sample was healthy
-    if int(x_prediction) == 0:
+    elif int(x_prediction) == 0:
         # then your factual cluster is a healthy cluster
         factual_cluster = train_cluster_df[
             train_cluster_df.cluster==closest_healthy_cluster
@@ -65,6 +82,12 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
         ]
     
     def plot_example_cluster(cluster, x_sample, is_factual):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
         
         center_color = "red"
         label="counterfactual"
@@ -114,12 +137,27 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
     
 
 def get_fft_values(y_values, T, N, f_s):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
     f_values = np.linspace(0.0, 1.0/(2.0*T), N) # N//2
     fft_values_ = fft(y_values)
     fft_values = 2.0/N * np.abs(fft_values_[0:N]) #N//2
     return f_values, fft_values
 
 def extract_ffts(df):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
+    
     ffts = list()
     frequencies= list()
     t_n=20
@@ -132,6 +170,13 @@ def extract_ffts(df):
     return np.array(ffts), np.array(frequencies)
 
 def get_time_series_features(df, feature_name, w_size):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
     
     """Extracting time series standard deviation"""
     std_feature=df.copy()
@@ -185,6 +230,14 @@ def get_time_series_features(df, feature_name, w_size):
     return ts_features, feature_names
 
 def extract_time_series_features(dev_data, feature_name, w_size):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
+    
     dev_data = cmapss.get_univariate_cmapss(dev_data, feature_name)
     x_train, x_test = cmapss.train_test_split(dev_data)
 

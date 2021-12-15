@@ -13,6 +13,15 @@ import seaborn as sns
 sns.set_style("whitegrid")
 
 def plot_classification_report(y_true, y_pred):
+    """
+    This function receives two arrays, y_pred and y_treu, and prints out the classification report,
+    It also calculates the confusion matrix.
+    
+    Input: two NumPy arrays, y_true, and y_pred
+    Output: the classification report and the plot of the confusion matrix 
+    """
+    
+    
     print(classification_report(y_true, y_pred))
     cm = confusion_matrix(y_true, y_pred,
                           labels=[0, 1])
@@ -22,10 +31,24 @@ def plot_classification_report(y_true, y_pred):
     plt.show()
     
 def continues_to_binary(y_pred):
+    """
+    This function transforms a list of continuous values into binary values. 
+    Used for the predictions of my deep learning models.
+
+    Input: a numpy array
+    Output: a numpy array  
+    """
     return [1 if i>0.5 else 0 for i in y_pred]
 
 
 def cluster_data(X, n_clusters):
+    """
+    This function receives an array and an integer to cluster the array into n_clusters.
+
+    Input: an array and an integer
+    Output: a dictionary of the cluster model, list of the labels and their corresponding centroids
+    """    
+    
     kmeans = KMeans(n_clusters = n_clusters, random_state = 7)
     labels = kmeans.fit_predict(X)
     centroids = kmeans.cluster_centers_
@@ -34,9 +57,25 @@ def cluster_data(X, n_clusters):
             "centroids":centroids}
     
 def find_the_best_n_cluster(X):
+    """
+    This function applies the clustering function multiple times to return the best number of clusters for the 
+    given data. I started first with smaller numbers for the clusters. But as I continued with the experiment, 
+    I found the need to have more clusters. This is because I want to create smaller neighborhoods, and it is 
+    only possible when the number of clusters is larger. However, comparing the silhouette_scores, increasing 
+    the n_clusters does not decrease the accuracy of the clustering model.
+
+    Input: a numpy array
+    Output: an integer
+    """        
+    
+
     # Find the appropriate n_clusters for each class  
     scores=[]
-    range_n_clusters = [3,5,7,10,15,20,25,30]
+    
+    #range_n_clusters = [3,5,7,10,15,20,25,30]
+    
+    # I avoided the smaller n_clusters to have smaller neighbourhoods
+    range_n_clusters = [15,20,25,30]
     for n_clusters in range_n_clusters:
         cluster_dict = cluster_data(X, n_clusters)
         silhouette_avg = silhouette_score(X, cluster_dict["labels"])
@@ -46,6 +85,14 @@ def find_the_best_n_cluster(X):
     return selected_n_cluster
 
 def visualize_clusters(X, cluster, title):
+    """
+    This function visualized the clusters. Since we have high dimensional data (each time point of a sequence is considered a feature), I only choose the first and last steps to visualize the clusters in a two-dimensional plot.
+
+    Input: a numpy array, a dictionary of cluster model, labels and the centroids, and a string for the title of the plot
+    Output: plot of the clustered X
+    """    
+    
+    
     f1 = 0 # visulizing timestep f1
     f2 = 19 # over the timestep f2
     u_labels = np.unique(cluster["labels"])
@@ -65,6 +112,14 @@ def visualize_clusters(X, cluster, title):
     plt.show()
 
 def get_clustered_data(nd_array, y, is_y_pred):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
+    
     label="y_true"
     if is_y_pred:
         label="y_pred"
@@ -87,6 +142,14 @@ def get_clustered_data(nd_array, y, is_y_pred):
 
 
 def get_clustered_df(nd_array, y_true, y_pred):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
+    
     df = pd.DataFrame(data=nd_array)
     df.columns = ["ts_{}".format(i) for i in range(nd_array.shape[1])] 
     df["y_true"] = y_true
@@ -137,6 +200,14 @@ def get_clustered_df(nd_array, y_true, y_pred):
 
 
 def label_point(x, y, val, ax):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
+    
     a = pd.concat({'x': x, 'y': y, 'val': val}, axis=1)
     for i, point in a.iterrows():
         ax.text(point['x']+.015, point['y']+.015,
@@ -145,6 +216,13 @@ def label_point(x, y, val, ax):
         
         
 def visualize_predictions(plot_df, model_name):
+    """
+    This function 
+
+    Input: a numpy array
+    Output: a numpy array  
+    """    
+    
     
     # visulalize the first timesteps over the last timesteps
     f1 = "ts_0"
