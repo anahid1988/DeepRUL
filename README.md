@@ -60,7 +60,7 @@ To evaluate my idea, I use the PHM08-CMAPSS dataset, a well-known and publicly a
 
 ![alt text][BigPicture]
 
-[BigPicture]: figures/Big-Picture.png
+[BigPicture]: figures/Overview.png
 
 
 ### Dataset and Work Description
