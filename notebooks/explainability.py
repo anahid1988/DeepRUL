@@ -13,10 +13,11 @@ cmapss = prepare_data.CMAPSS()
 
 def get_predictions_as_df(nd_array, y_true, y_pred):
     """
-    This function 
+    This function creates a dataframe from the prediction results and the actual
+    labels.
 
-    Input: a numpy array
-    Output: a numpy array  
+    Input: 3 numpy arrays: training data, actual labels and the predicted labels
+    Output: the result dataframe  
     """    
     
     
@@ -31,14 +32,26 @@ def get_predictions_as_df(nd_array, y_true, y_pred):
 
 def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
     """
-    This function 
+    This function receives the train dataframe and a selected sample to 
+    visualize the factual and counterfactual example. 
+    The train_cluster is a 
+    dictionary, which contains the trained clustering model and the 
+    train_cluster_df is a dataframe, containing the cluster labels, actual 
+    binary labels and the predicted labels with the prediction confidence.
 
-    Input: a numpy array
-    Output: a numpy array  
+    The function predicts the cluster of the given sample and identifies which
+    factual cluster and which counterfactual cluster is the closest to this 
+    sample. 
+
+    Input: a dictionary, a dataframe, and one row of a dataframe
+    Output: the visualization of the factual and counterfactual clusters 
+    of the selected sample 
     """    
     
-    # get the x_test[i] and exclude y_true, y_pred and model confidence
-    x_sample=selected_sample[["ts_{}".format(i) for i in range(len(selected_sample)-3)]].values
+    # get the selected time series window (sequence) 
+    # and exclude y_true, y_pred and model confidence
+    x_sample=selected_sample[["ts_{}".format(i) for i in 
+                              range(len(selected_sample)-3)]].values
 
     x_prediction = selected_sample["y_pred"]
     x_actual_label = selected_sample["y_true"]
@@ -47,11 +60,13 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
     # to which healthy cluster from the trainset is this sample the closest?
     closest_healthy_cluster = train_cluster["healthy_clusters"
                                            ]["kmeans"
-                                            ].predict(x_sample[np.newaxis, :])[0]
+                                            ].predict(x_sample[np.newaxis, :]
+                                                      )[0]
 
     closest_unhealthy_cluster = train_cluster["unhealthy_clusters"
                                            ]["kmeans"
-                                            ].predict(x_sample[np.newaxis, :])[0]
+                                            ].predict(x_sample[np.newaxis, :]
+                                                      )[0]
 
     center_cols = ["center_{}".format(i) for i in range(len(x_sample))]
     
@@ -82,12 +97,15 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
         ]
     
     def plot_example_cluster(cluster, x_sample, is_factual):
-    """
-    This function 
+        """
+        This function receives a cluster, the predicted sample, and a boolean 
+        value to assign a color to the cluster subplot (a factual cluster centroid 
+        is plotted with green and the centroid of the counterfactual cluster is 
+        plotted with red).
 
-    Input: a numpy array
-    Output: a numpy array  
-    """    
+        Input: a dataframe, a numpy array, and a boolean value
+        Output: subplot of the cluster
+        """    
         
         center_color = "red"
         label="counterfactual"
@@ -119,9 +137,12 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
 
         
     fig = plt.figure(figsize=(15,7))
-    fig.suptitle("y_true={} | y_pred={} | confidence={}".format(x_actual_label,
-                                                                x_prediction,
-                                                                np.round(x_model_confidence,2)),
+    fig.suptitle(
+        "y_true={} | y_pred={} | confidence={}".format(x_actual_label,
+                                                       x_prediction,
+                                                       np.round(
+                                                           x_model_confidence,2
+                                                           )),
                  fontsize=20)
 
 
@@ -138,10 +159,15 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
 
 def get_fft_values(y_values, T, N, f_s):
     """
-    This function 
+    This function extracts the double-sided FFT values of the input time series,
+    y_values based on the sampling period (T), time series length (N), and 
+    the sampling frequency (f_s).
+    The reason behind calculating the double-sided FFT values is to keep preserve
+    the input shape.
 
-    Input: a numpy array
-    Output: a numpy array  
+
+    Input: a numpy array, a float number, an integer, and another float number
+    Output: 2 arrays of extracted frequency bins and FFT values
     """    
     
     f_values = np.linspace(0.0, 1.0/(2.0*T), N) # N//2
@@ -149,32 +175,36 @@ def get_fft_values(y_values, T, N, f_s):
     fft_values = 2.0/N * np.abs(fft_values_[0:N]) #N//2
     return f_values, fft_values
 
-def extract_ffts(df):
+def extract_ffts(nd_array):
     """
-    This function 
+    This function receives a 2d array of the full time series and using 
+    the get_fft_values function, extracts the FFT values.
 
     Input: a numpy array
-    Output: a numpy array  
+    Output: two numpy arrays
     """    
     
     
     ffts = list()
     frequencies= list()
     t_n=20
-    T = t_n / df.shape[1]
+    T = t_n / nd_array.shape[1]
     f_s = 1/T
-    for x in df:
-        f_values, fft_values =get_fft_values(x, T, df.shape[1], f_s)
+    for x in nd_array:
+        f_values, fft_values =get_fft_values(x, T, nd_array.shape[1], f_s)
         ffts.append(fft_values)
         frequencies.append(f_values)
     return np.array(ffts), np.array(frequencies)
 
 def get_time_series_features(df, feature_name, w_size):
     """
-    This function 
+    This function extracts the time domain and the frequency domain features of
+    each w_size time window from the given feature name (a column existing in 
+    the dataframe). 
+    
 
-    Input: a numpy array
-    Output: a numpy array  
+    Input: a dataframe, a string, and an integer
+    Output: a n dimentional array and a list of strings  
     """    
     
     
@@ -231,10 +261,12 @@ def get_time_series_features(df, feature_name, w_size):
 
 def extract_time_series_features(dev_data, feature_name, w_size):
     """
-    This function 
+    This function uses the get_time_series_feature function and extracts the
+    time series features from the given train and test data. And returns the
+    feature sets with their corresponding list of feature names. 
 
-    Input: a numpy array
-    Output: a numpy array  
+    Input: a dataframe
+    Output: 2 numpy arrays and a list of strings
     """    
     
     
@@ -247,7 +279,11 @@ def extract_time_series_features(dev_data, feature_name, w_size):
     x_test = cmapss.minmax_scale(x_test)
     x_test = cmapss.denoise_sensors(x_test)
     
-    ts_feat_train, ts_feat_names = get_time_series_features(x_train, feature_name, w_size)
-    ts_feat_test, ts_feat_names = get_time_series_features(x_test, feature_name, w_size)
+    ts_feat_train, ts_feat_names = get_time_series_features(x_train,
+                                                            feature_name,
+                                                            w_size)
+    ts_feat_test, ts_feat_names = get_time_series_features(x_test,
+                                                           feature_name,
+                                                           w_size)
 
     return ts_feat_train, ts_feat_test, ts_feat_names

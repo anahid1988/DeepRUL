@@ -14,8 +14,8 @@ sns.set_style("whitegrid")
 
 def plot_classification_report(y_true, y_pred):
     """
-    This function receives two arrays, y_pred and y_treu, and prints out the classification report,
-    It also calculates the confusion matrix.
+    This function receives two arrays, y_pred and y_treu, and prints out the 
+    classification report, It also calculates the confusion matrix.
     
     Input: two NumPy arrays, y_true, and y_pred
     Output: the classification report and the plot of the confusion matrix 
@@ -43,10 +43,12 @@ def continues_to_binary(y_pred):
 
 def cluster_data(X, n_clusters):
     """
-    This function receives an array and an integer to cluster the array into n_clusters.
+    This function receives an array and an integer to cluster the array into 
+    n_clusters.
 
     Input: an array and an integer
-    Output: a dictionary of the cluster model, list of the labels and their corresponding centroids
+    Output: a dictionary of the cluster model, list of the labels and their 
+    corresponding centroids
     """    
     
     kmeans = KMeans(n_clusters = n_clusters, random_state = 7)
@@ -58,10 +60,12 @@ def cluster_data(X, n_clusters):
     
 def find_the_best_n_cluster(X):
     """
-    This function applies the clustering function multiple times to return the best number of clusters for the 
-    given data. I started first with smaller numbers for the clusters. But as I continued with the experiment, 
-    I found the need to have more clusters. This is because I want to create smaller neighborhoods, and it is 
-    only possible when the number of clusters is larger. However, comparing the silhouette_scores, increasing 
+    This function applies the cluster_data multiple times to return the 
+    best number of clusters for the given data. I started first with smaller 
+    numbers for the clusters. But as I continued with the experiment, I found 
+    the need to have more clusters. This is because I want to create smaller 
+    neighborhoods, and it is only possible when the number of clusters is 
+    larger. However, comparing the silhouette_scores, increasing 
     the n_clusters does not decrease the accuracy of the clustering model.
 
     Input: a numpy array
@@ -86,9 +90,14 @@ def find_the_best_n_cluster(X):
 
 def visualize_clusters(X, cluster, title):
     """
-    This function visualized the clusters. Since we have high dimensional data (each time point of a sequence is considered a feature), I only choose the first and last steps to visualize the clusters in a two-dimensional plot.
+    This function visualized the input clusters of the given data X. Since we 
+    have high dimensional data (each time point of a sequence is considered a 
+    feature), I only choose the first and last steps to visualize the clusters 
+    in a two-dimensional plot.
 
-    Input: a numpy array, a dictionary of cluster model, labels and the centroids, and a string for the title of the plot
+    Input: a numpy array, a dictionary of cluster model, labels and the 
+    centroids, and a string for the title of the plot
+    
     Output: plot of the clustered X
     """    
     
@@ -113,10 +122,19 @@ def visualize_clusters(X, cluster, title):
 
 def get_clustered_data(nd_array, y, is_y_pred):
     """
-    This function 
+    This function uses the cluster_data function to cluster the given array based 
+    on the given labels. 
+    The labels could be either the actual labels or the predicted labels within 
+    each of its classes. 
+    
+    We cluster the data to see the existing patterns or sub-classes of a class. 
+    We believe this information can help us understand the small changes 
+    that could lead to model misclassification.
 
-    Input: a numpy array
-    Output: a numpy array  
+    Input: a numpy array, labels, and a boolean variable indicating whether the 
+    label is a prediction or true. 
+    Output: a dictionary of clustered data for each class and their cluster
+    information. 
     """    
     
     
@@ -143,10 +161,13 @@ def get_clustered_data(nd_array, y, is_y_pred):
 
 def get_clustered_df(nd_array, y_true, y_pred):
     """
-    This function 
+    This function uses clustered_data and clusters the classes of the input 
+    array. The difference between this function and the previous one is that
+    this function aims to return a dataframe with both y_pred and y_true and 
+    the model confidence of the prediction.
 
-    Input: a numpy array
-    Output: a numpy array  
+    Input: 3 numpy arrays= x, true labels, and the predicted labels
+    Output: the prediction result dataframe 
     """    
     
     
@@ -201,10 +222,7 @@ def get_clustered_df(nd_array, y_true, y_pred):
 
 def label_point(x, y, val, ax):
     """
-    This function 
-
-    Input: a numpy array
-    Output: a numpy array  
+    This function includes the cluster labels to the cluster plot 
     """    
     
     
@@ -217,10 +235,10 @@ def label_point(x, y, val, ax):
         
 def visualize_predictions(plot_df, model_name):
     """
-    This function 
+    This function visualizes the clustered prediction result. 
 
-    Input: a numpy array
-    Output: a numpy array  
+    Input: a dataframe and the model_name for the plot title
+    Output: the visualization of the input dataframe 
     """    
     
     
@@ -232,8 +250,10 @@ def visualize_predictions(plot_df, model_name):
     fc2 = f2.replace("ts", "center")
     
     # add confidence to the color = lower confidence, lighter the color
-    color_0 = np.array([(18/201, 27/201, 1, alpha) for alpha in plot_df[plot_df.y_true == 0].cluster_conf.values]) 
-    color_1 = [(1, 0.4, 0, alpha) for alpha in plot_df[plot_df.y_true == 1].cluster_conf.values]
+    color_0 = np.array([(18/201, 27/201, 1, alpha) 
+    for alpha in plot_df[plot_df.y_true == 0].cluster_conf.values]) 
+    color_1 = [(1, 0.4, 0, alpha) 
+    for alpha in plot_df[plot_df.y_true == 1].cluster_conf.values]
 
     plt.figure(figsize=(10,7))
     plt.title("y_true VS y_pred ({})".format(model_name),fontsize=20)
