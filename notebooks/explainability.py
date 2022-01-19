@@ -51,7 +51,7 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
     # get the selected time series window (sequence) 
     # and exclude y_true, y_pred and model confidence
     x_sample=selected_sample[["ts_{}".format(i) for i in 
-                              range(len(selected_sample)-3)]].values
+                              range(len(selected_sample)-4)]].values
 
     x_prediction = selected_sample["y_pred"]
     x_actual_label = selected_sample["y_true"]
@@ -136,7 +136,7 @@ def get_counter_and_factuals(train_cluster, train_cluster_df, selected_sample):
         ax.legend(loc="upper right")
 
         
-    fig = plt.figure(figsize=(15,7))
+    fig = plt.figure(figsize=(15,5))
     fig.suptitle(
         "y_true={} | y_pred={} | confidence={}".format(x_actual_label,
                                                        x_prediction,
@@ -214,7 +214,7 @@ def get_time_series_features(df, feature_name, w_size):
                                         ).std().fillna(
     df[feature_name][:w_size].std()).values
     
-    std_x, std_y = cmapss.window_data(std_feature, w_size, w_size//2)
+    std_x, std_y, engines = cmapss.window_data(std_feature, w_size, w_size//2)
     
     
     """Extracting time series pitch"""
@@ -223,7 +223,7 @@ def get_time_series_features(df, feature_name, w_size):
                                         ).max().fillna(
     df[feature_name][:w_size].max()).values
     
-    max_x, max_y = cmapss.window_data(max_feature, w_size, w_size//2)
+    max_x, max_y, engines = cmapss.window_data(max_feature, w_size, w_size//2)
 
     
     """Extracting time series min"""
@@ -232,11 +232,11 @@ def get_time_series_features(df, feature_name, w_size):
                                         ).min().fillna(
     df[feature_name][:w_size].min()).values
     
-    min_x, min_y = cmapss.window_data(min_feature, w_size, w_size//2)
+    min_x, min_y, engines = cmapss.window_data(min_feature, w_size, w_size//2)
     
     
     """Extracting time series frequency"""
-    X, y = cmapss.window_data(df, w_size, w_size//2)
+    X, y, engines = cmapss.window_data(df, w_size, w_size//2)
     ffts, freq_bins = extract_ffts(X)
     
     

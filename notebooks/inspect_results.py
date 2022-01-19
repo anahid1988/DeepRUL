@@ -1,8 +1,12 @@
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn.metrics import classification_report
+from sklearn.neighbors import KNeighborsClassifier
 
-from sklearn.cluster import KMeans
+
+from sklearn.cluster import KMeans # only for spatial dimension
+from tslearn.clustering import TimeSeriesKMeans
 from sklearn.metrics import silhouette_score
+from scipy.spatial import distance
 
 import numpy as np
 import pandas as pd
@@ -40,7 +44,44 @@ def continues_to_binary(y_pred):
     """
     return [1 if i>0.5 else 0 for i in y_pred]
 
+def DTW(a, b):   
+    """
+    This function calculates the distance with Dynamic Time Warping
+    
+    Input: two numpy arraywith similar dimensions
+    Output: a matrix of warping distance
+    """
+    
+    
+    an = a.size
+    bn = b.size
+    pointwise_distance = distance.cdist(a.reshape(-1,1),b.reshape(-1,1))
+    cumdist = np.matrix(np.ones((an+1,bn+1)) * np.inf)
+    cumdist[0,0] = 0
 
+    for ai in range(an):
+        for bi in range(bn):
+            minimum_cost = np.min([cumdist[ai, bi+1],
+                                   cumdist[ai+1, bi],
+                                   cumdist[ai, bi]])
+            cumdist[ai+1, bi+1] = pointwise_distance[ai,bi] + minimum_cost
+
+    return cumdist[an, bn]
+
+def KNN_DTW(X, y):
+    """
+    This function classifies the X based on the given y.
+
+    Input: X input array
+    Output: a knn model trained on X w.r.t. y
+    """
+    
+    # number of neighbours was only tuned on CMAPSS dataset 
+    # with the current parameters
+    knn = KNeighborsClassifier(metric=DTW, n_neighbors=4).fit(X, y)
+    return knn
+    
+    
 def cluster_data(X, n_clusters):
     """
     This function receives an array and an integer to cluster the array into 
@@ -50,8 +91,13 @@ def cluster_data(X, n_clusters):
     Output: a dictionary of the cluster model, list of the labels and their 
     corresponding centroids
     """    
+    # time and spatial dimensions are taken into acount
+    kmeans = TimeSeriesKMeans(n_clusters=n_clusters, metric="dtw",
+                              max_iter=10, random_state=7)
     
-    kmeans = KMeans(n_clusters = n_clusters, random_state = 7)
+    # only spatial dimension is taken into acount: not recommended
+    #kmeans = KMeans(n_clusters = n_clusters, random_state = 7)
+    
     labels = kmeans.fit_predict(X)
     centroids = kmeans.cluster_centers_
     return {"kmeans":kmeans,
@@ -173,25 +219,26 @@ def get_clustered_df(nd_array, y_true, y_pred):
     
     df = pd.DataFrame(data=nd_array)
     df.columns = ["ts_{}".format(i) for i in range(nd_array.shape[1])] 
-    df["y_true"] = y_true
+    
+    # add the prediction results
+    df["y_pred"] = [1 if i>0.5 else 0 for i in y_pred]
 
-    x_0 = df.loc[df["y_true"] == 0, df.columns != "y_true"].values
-    x_1 = df.loc[df["y_true"] == 1, df.columns != "y_true"].values    
+    x_0 = df.loc[df["y_pred"] == 0, df.columns != "y_pred"].values
+    x_1 = df.loc[df["y_pred"] == 1, df.columns != "y_pred"].values    
 
     # Find the best number for clusters and cluster the data
     cluster_0 = cluster_data(x_0, find_the_best_n_cluster(x_0))
     cluster_1 = cluster_data(x_1, find_the_best_n_cluster(x_1))
 
-    # add the prediction results
-    df["y_pred"] = [1 if i>0.5 else 0 for i in y_pred]
-
+    df["y_true"] = y_true 
+    
     #add the confidence
     df["confidence"] = y_pred
 
 
     # add the cluster labels
-    df.loc[df[df.y_true==0].index, "cluster"] = cluster_0["labels"]
-    df.loc[df[df.y_true==1].index, "cluster"] = (cluster_0["labels"].max()+1
+    df.loc[df[df.y_pred==0].index, "cluster"] = cluster_0["labels"]
+        df.loc[df[df.y_pred==1].index, "cluster"] = (cluster_0["labels"].max()+1
                                                 ) + cluster_1["labels"]
     df.cluster = df.cluster.astype(int)
 
@@ -207,11 +254,11 @@ def get_clustered_df(nd_array, y_true, y_pred):
             for j in range(len(cluster_0["centroids"])):
                 if cluster == j: 
                     df.loc[df[df.cluster==cluster].index,
-                    "center_{}".format(i)] = cluster_0["centroids"][j][i] 
+                    "center_{}".format(i)] = cluster_0["centroids"][j][i][0] 
             for j in range(len(cluster_1["centroids"])):
                 if cluster == cluster_0["labels"].max()+1+j: 
                     df.loc[df[df.cluster==cluster].index,
-                    "center_{}".format(i)] = cluster_1["centroids"][j][i] 
+                    "center_{}".format(i)] = cluster_1["centroids"][j][i][0] 
 
 
     # add cluster confidence
@@ -275,3 +322,5 @@ def visualize_predictions(plot_df, model_name):
                     x=fc1, y=fc2,
                     hue="y_pred", style="y_true",
                     s= 100, sizes="cluster_conf")
+    
+    plt.savefig("./results/decision_boundary.png")

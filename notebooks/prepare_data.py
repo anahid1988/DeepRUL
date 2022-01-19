@@ -474,6 +474,7 @@ class CMAPSS():
         
         data = []
         label = []
+        engines = []
         for unit in df.unit.unique():
             engine = df[df.unit==unit].copy()
             
@@ -483,6 +484,7 @@ class CMAPSS():
                                  for _ in range(padding_size)]
                 data.append(engine.s12.values.tolist()+padded_values)
                 label.append(int(self.rounder(engine.health.values.mean())))
+                engines.append(unit)
                 continue
 
             start=0
@@ -490,10 +492,12 @@ class CMAPSS():
                 data.append(engine.s12[start:start+window_size].values)
                 label.append(int(self.rounder(
                     engine.health[start:start+window_size].values.mean())))
+                engines.append(unit)
                 start += hopsize
 
             data.append(engine.s12[-window_size:].values)
             label.append(int(self.rounder(
                 engine.health[-window_size:].values.mean())))
+            engines.append(unit)
 
-        return np.array(data, dtype=object), label
+        return np.array(data, dtype=object), label, engines
