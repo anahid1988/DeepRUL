@@ -47,14 +47,4 @@ Commercial Modular Aero-Propulsion System Simulation is intended for Prognosis H
 
 [cmapss]: figures/CMAPSS_description.png
 
-### Project Timeline 
-
-![alt text][wps]
-
-[wps]: figures/WPs.png
-
-![alt text][timeline]
-
-[timeline]: figures/timeline.png
-
 
