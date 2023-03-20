@@ -2,8 +2,6 @@
 
 This repository contains scripts and reports on explaining Deep Learning applications for Remaining Useful Life and Machine's health Estimation.
 
-**Project Type** - Bring your own method
-
 **Project Motivation** - This project is part of a PhD in progress and is motivated by the work of 
 * [Ribeiro et. al., 2016 "Why should I trust you?" Explaining the predictions of any classifier. Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining](https://www.kdd.org/kdd2016/papers/files/rfp0573-ribeiroA.pdf)
 * [Schmidt et al., 2019. Quantifying interpretability and trust in machine learning systems. AAAI-19 Workshop on Network Interpretability for Deep Learning](https://arxiv.org/abs/1901.08558)
