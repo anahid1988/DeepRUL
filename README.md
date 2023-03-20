@@ -24,22 +24,6 @@ I have spent roughly 86 hours implementing the code, debugging, parameter tuning
 Unfortunately, after transferring my code into the scripts, I ran into some annoying bugs, which took me some good hours to fix.
 The breakdown of my hours are as the following:
 
-- WP 1: ~24 hours
-  - Data preprocessing and feature engineering > (~20 hours)
-  - Reading papers for a benchmark close to my task > (~4 hours)
-- WP 2:  ~31 hour
-  - Model building / baselines/vanilla LSTM > (~2 hours)
-  - Parameter tunning (Before Talos Library) > (~20 hours)
-  - Parameter tunning (After Talos Library) > (~1 hour)
-  - Model Inspection > (~8 hours)
-- WP 3: ~31 hour
-  - Factual and Counterfactual explanations > (~30 hours)
-  - surrogate Model > (~1 hour)
-- WP 4:  
-  - As I did it simultaneously while experimenting, I can only guess around 10 hours to create my January slides and an overall image. But these hours are also calculated within each of the hours mentioned in the above work packages. 
-
-
-
 ## Project Description and Summary
 Interpretable machine learning has recently attracted a lot of interest in the community. The current explainability approaches mainly focus on models trained on non-time series data. LIME and SHAP are well-known post-hoc examples that provide visual explanations of feature contributions to model decisions on an instance basis. Other approaches, such as attribute-wise interpretations, only focus on tabular data. Little research has been done so far on the interpretability of predictive models trained on time series data. Therefore, my Ph.D. focuses on explaining decisions made by black-box models such as Deep Neural Networks trained on sensor data. 
 In my [publication](https://papers.phmsociety.org/index.php/phme/article/view/1244), I first presented the results of a qualitative study, in which we systematically compared the types of explanations and the properties (e.g., method, computational complexity) of existing interpretability approaches for models trained on the PHM08-CMAPSS dataset. In our subsequent work, we investigated machine learning practitioners' needs to advance and improve the explanations in terms of comprehensiveness, comprehensibility, and trust. We also pointed out the advantages and disadvantages of using these approaches for interpreting models trained on time series data.
