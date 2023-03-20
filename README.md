@@ -19,11 +19,6 @@ The __CMAPSS_main.ipynb__ contains the experiments and documentation I created t
 
 As this is a binary classification task, I evaluate my model's performance by its accuracy and f1-score. I aim to achieve ~85% accuracy and ~85% f1-score. However, until now and after parameter tuning, my model reaches an accuracy of 79% and an average f1-score of 79%, having 76% and 82% f1-score for class healthy and unhealthy, respectively.
 
-### A rough estimation of my workload
-I have spent roughly 86 hours implementing the code, debugging, parameter tuning, refactoring, and cleaning up the scripts. 
-Unfortunately, after transferring my code into the scripts, I ran into some annoying bugs, which took me some good hours to fix.
-The breakdown of my hours are as the following:
-
 ## Project Description and Summary
 Interpretable machine learning has recently attracted a lot of interest in the community. The current explainability approaches mainly focus on models trained on non-time series data. LIME and SHAP are well-known post-hoc examples that provide visual explanations of feature contributions to model decisions on an instance basis. Other approaches, such as attribute-wise interpretations, only focus on tabular data. Little research has been done so far on the interpretability of predictive models trained on time series data. Therefore, my Ph.D. focuses on explaining decisions made by black-box models such as Deep Neural Networks trained on sensor data. 
 In my [publication](https://papers.phmsociety.org/index.php/phme/article/view/1244), I first presented the results of a qualitative study, in which we systematically compared the types of explanations and the properties (e.g., method, computational complexity) of existing interpretability approaches for models trained on the PHM08-CMAPSS dataset. In our subsequent work, we investigated machine learning practitioners' needs to advance and improve the explanations in terms of comprehensiveness, comprehensibility, and trust. We also pointed out the advantages and disadvantages of using these approaches for interpreting models trained on time series data.
