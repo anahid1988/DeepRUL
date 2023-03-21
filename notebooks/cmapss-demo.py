@@ -20,20 +20,33 @@ import explainability as explainer
 # for visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
+from PIL import Image
 
 import warnings
 warnings.filterwarnings("ignore")
 np.random.seed(7)
 
 
+# design the sidebar
+def add_logo(logo_path, width, height):
+    """Read and return a resized logo"""
+    logo = Image.open(logo_path)
+    modified_logo = logo.resize((width, height))
+    return modified_logo
+
 # Title of the Demo
 st.title("""eXplainable Deep Neural Networks for Machine Health Prognosis
 applications""")
 
+my_logo = add_logo(logo_path="../figures/XPDM-LOGO.png",width=150,height=150)
+st.sidebar.image(my_logo)
 st.sidebar.title("eXplainable PdM")
 st.sidebar.markdown("Is the turbofan engine healthy or unhealthy?")
 
-if st.sidebar.checkbox("Display the description", False):
+options = st.sidebar.radio('## Display:', ['Home', 'Display data',])
+
+
+if options == 'Home':  
     st.subheader('Motivation and Problem Statement.')
     st.write("""Interpretable machine learning has recently attracted a lot of
     interest in the community. The current explainability approaches mainly
@@ -45,9 +58,11 @@ if st.sidebar.checkbox("Display the description", False):
     only focus on tabular data. Little research has been done so far on the
     interpretability of predictive models trained on time series data.""")
 
+    image_file = add_logo(logo_path="../figures/CMAPSS_description.png",width=750,height=500)
+    st.image(image_file)
 
 # parameters
-path = "../../Datasets/PHM08_Challenge_Data/train.txt"
+path = "../data/PHM08_Challenge_Data/train.txt"
 dev_mode = True # not using the CMAPSS test set
 
 #@st.cash
@@ -71,6 +86,7 @@ x_train = cmapss.denoise_sensors(x_train)
 
 x_test = cmapss.minmax_scale(x_test)
 x_test = cmapss.denoise_sensors(x_test)
+
 
 # display DataFrame
 if st.sidebar.checkbox("Display CMAPSS data", False):

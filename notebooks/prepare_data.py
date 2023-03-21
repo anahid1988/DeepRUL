@@ -122,14 +122,24 @@ class CMAPSS():
             trainset = df.iloc[train_idx].copy().reset_index(drop=True)
             trainset["op_mode"] = df.iloc[train_idx].op_mode.values
             trainset["health"] = df.iloc[train_idx].health.values
+            trainset["RUL"] = df.iloc[train_idx].RUL.values
+            trainset["TTF"] = df.iloc[train_idx].TTF.values
 
             evalset = df.iloc[test_idx].copy().reset_index(drop=True)
             evalset["op_mode"] = df.iloc[test_idx].op_mode.values
             evalset["health"] = df.iloc[test_idx].health.values
+            evalset["RUL"] = df.iloc[test_idx].RUL.values
+            evalset["TTF"] = df.iloc[test_idx].TTF.values
         
         # get the trainset statistics for the normalization step
-        self.train_max = trainset.groupby(["unit","op_mode"])[self.sensor_name].max().reset_index()                                                                                     
-        self.train_min = trainset.groupby(["unit","op_mode"])[self.sensor_name].min().reset_index()                                                                           
+        
+        ## if Uni-Sessor
+        # self.train_max = trainset.groupby(["unit","op_mode"])[self.sensor_name].max().reset_index()                                        
+        # self.train_min = trainset.groupby(["unit","op_mode"])[self.sensor_name].min().reset_index()      
+        
+        ## if Multi-Sensor
+        self.train_max = trainset.groupby(["unit","op_mode"]).max().reset_index()                                        
+        self.train_min = trainset.groupby(["unit","op_mode"]).min().reset_index()    
         
         return trainset, evalset
     
@@ -185,8 +195,9 @@ class CMAPSS():
         mins = stat_df["min"].values
         maxes = stat_df["max"].values
 
+        # hard coded - need to change
         scaled_df = pd.DataFrame()    
-        scaled_df = df.assign(s12=(
+        scaled_df = df.assign(s7=(
             df.s12 - mins)/(maxes - mins))   
         return scaled_df
 

@@ -238,7 +238,7 @@ def get_clustered_df(nd_array, y_true, y_pred):
 
     # add the cluster labels
     df.loc[df[df.y_pred==0].index, "cluster"] = cluster_0["labels"]
-        df.loc[df[df.y_pred==1].index, "cluster"] = (cluster_0["labels"].max()+1
+    df.loc[df[df.y_pred==1].index, "cluster"] = (cluster_0["labels"].max()+1
                                                 ) + cluster_1["labels"]
     df.cluster = df.cluster.astype(int)
 
